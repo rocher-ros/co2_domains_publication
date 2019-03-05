@@ -138,7 +138,7 @@ ggplot() +
   geom_hline(aes(yintercept=380), linetype=1, color="gray30")+
   scale_y_continuous(limits = c(0, 4150), expand = c(0, 0), breaks = seq(0, 4000, by = 1000)) +
   scale_x_continuous(limits = c(0, 550),expand = c(0, 0), breaks = seq(0, 550, by = 100)) +
-  labs(y=expression(paste(italic(p),CO[2], " (ppm)")), x=expression(k[600]~~(m~d^-1)))+#,  subtitle= expression(paste("Isolines represent intervals of ",CO[2]," fluxes of 10 gC ",m^-2,d^-1, "and above 100 intervals of 50 gC ",m^-2,d^-1) ))+ 
+  labs(y=expression(paste(italic(p),CO[2], " (ppm)")), x=expression(k[600]~~(m~d^-1)))+
   theme(axis.text = element_text(size=19), axis.title = element_text(size=19), plot.subtitle = element_text(size=13),
         legend.key.height = unit(2.35, "cm"),
         legend.key.width = unit(1, "cm"))
