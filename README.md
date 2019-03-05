@@ -7,6 +7,6 @@ Author of the script and contact email: Gerard Rocher-Ros (g.rocher.ros@gmail.co
 
 Before running the script, dowload the datasets in the public repositories:
 
-The datasets required can be found freely in the Swedish Natial Data Service: https://doi.org/10.5878/pxa2-vy55 
+The datasets required can be found freely in the Swedish National Data Service: https://doi.org/10.5878/pxa2-vy55 
 
 
