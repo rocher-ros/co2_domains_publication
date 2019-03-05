@@ -7,6 +7,6 @@ Author of the script and contact email: Gerard Rocher-Ros (g.rocher.ros@gmail.co
 
 Before running the script, dowload the datasets in the public repositories:
 
-Dataset Miellajokka can be found here: https://doi.org/10.5878/pxa2-vy55 
+Dataset Miellajokka can be found freely in the Swedish Natial Data Service: https://doi.org/10.5878/pxa2-vy55 
 
-Global dataset can be found here: (fix link when available)
+Global dataset can be found freely in Figshare: (fix link when available)
