@@ -5,8 +5,6 @@ AUTHORS:  Gerard Rocher-Ros, Ryan Sponseller, William Lidberg, Carl-Magnus Mört
 
 Author of the script and contact email: Gerard Rocher-Ros (g.rocher.ros@gmail.com)
 
-Before running the script, dowload the datasets in the public repositories:
+Before running the script, dowload the datasets in the public repository:
 
-The datasets required can be found freely in the Swedish National Data Service: https://doi.org/10.5878/pxa2-vy55 
-
-
+The datasets required can be downloaded freely in the Swedish National Data Service: https://doi.org/10.5878/pxa2-vy55 and https://doi.org/10.5878/77ps-4f21
