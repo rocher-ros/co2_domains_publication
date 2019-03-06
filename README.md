@@ -6,8 +6,10 @@ AUTHORS:  Gerard Rocher-Ros, Ryan Sponseller, William Lidberg, Carl-Magnus Mört
 Author of the script and contact email: Gerard Rocher-Ros (g.rocher.ros@gmail.com)
 The methods for the data processing can be found in tue upcoming publication.
 
-Before running the script, download the datasets deposited in the Swedish National Data Service:
+Before running the [R script](https://github.com/rocher-ros/co2_domains_publication/blob/master/co2_domains_figs_stats.R), download the datasets deposited in the Swedish National Data Service:
 
 Dataset 1: https://doi.org/10.5878/pxa2-vy55 
 
 Dataset 2: https://doi.org/10.5878/77ps-4f21
+
+This script was written in R (version 3.5.2) and Rstudio (version 1.1.463)
