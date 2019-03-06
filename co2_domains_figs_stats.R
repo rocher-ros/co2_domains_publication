@@ -11,6 +11,7 @@
 ####
 #### The final publication figures and pannels were prepared using Adobe Illustrator
 ####################################################################################
+
 #### Load  and install packages ####
 #List of all packages needed
 package_list <- c('ggplot2', 'dplyr', 'readr', 'ggpubr', 'fitdistrplus', 'scales', 'rworldmap',
@@ -50,7 +51,7 @@ gglm = list(
 co2_glob <- read_csv("global_pco2_k.csv") 
 
 
-### Figure 1a
+### Figure 1a,  export as 6x4 inch and pdf
 ggplot(data=co2_glob)+
   geom_point(aes(x=k600,y=pco2), alpha=.5, size=3 )+
   geom_hline(yintercept=400, linetype=2)+
@@ -81,7 +82,7 @@ co2glob_log <- co2_glob %>% transmute(STAT_ID, Latitude, Longitude, fco2= log(fc
   mutate(fco2s=base::scale(fco2), pco2s=base::scale(pco2), k600s=base::scale(k600))
 
 
-#Figure 1c
+#Figure 1c, export as 6x4 inch and pdf
 ggplot(data=co2glob_log, aes(pco2, fco2))+
   geom_point(aes( color=k600), alpha=.5, size=4)+
   scale_color_viridis_c()+
@@ -104,7 +105,7 @@ partr2$Effects[,4]^2
 #### Figure 3: Spatial patterns in the Miellajokka catchment ####
 #Read file from the spatial sampling in Miellajokka
 #It can be found here: https://doi.org/10.5878/pxa2-vy55
-sp <- read_csv2("spatial_miella_submission.csv")
+sp <- read_csv2("spatial_miella_submission.csv") #Beware, this csv file was processed by the data service and has "," as decimal delimiter
 
 ####THIS IS TO MAKE THE K VS CO2 SPACE.
 #### TO PLOT THE ISOLINES IN FIGURE 3A
@@ -169,7 +170,7 @@ ggplot() +
 wet_klow <- subset(sp, subset = k600_md <= 42)
 wet_khigh <- subset(sp, subset = k600_md >42)
 
-#Figure 3b
+#Figure 3b,  export as 8x5 inch and pdf
 ggplot()+
   geom_point(data=wet_klow, aes(x=wet_areas_percentage, y=CO2_ppm), size=5, alpha=0.8,  color="forestgreen")+ 
   geom_point(data=wet_khigh, aes(x=wet_areas_percentage, y=CO2_ppm), size=6, alpha=0.8,shape=18, color="darkgoldenrod3")+
@@ -190,7 +191,7 @@ lmhigh<- lm(CO2_ppm~wet_areas_percentage, data=wet_khigh)
 summary(lmhigh)
 
 
-#Figure 3c
+#Figure 3c,   export as 8x5 inch and pdf
 ggplot(data= sp, aes(x=k600_md, y=FluxCO2_gm2_d1, color=CO2_ppm))+
   geom_point(size=8,alpha=0.8, shape=20)+
   scale_color_gradient(low="dodgerblue", high="firebrick2")+
@@ -204,7 +205,7 @@ ggplot(data= sp, aes(x=k600_md, y=FluxCO2_gm2_d1, color=CO2_ppm))+
         legend.box.background = element_rect(colour = "black"),
         plot.margin = margin(0.1, 0.1, 0.1, 0.8, "cm"))   
 
-#Figure 3d
+#Figure 3d,   export as 8x5 inch and pdf
 ggplot(data= sp, aes(x=CO2_ppm, y=FluxCO2_gm2_d1))+
   geom_point(size=5, alpha=.7)+
   geom_smooth( color="black", method=lm)+
@@ -242,7 +243,7 @@ ggplot()+
   labs(x="number of samples", y=expression("median "*CO[2]*" evasion (g C "*m^-2*d^-1*")" ))+
   theme(axis.text = element_text(size=19), axis.title = element_text(size=19))
 
-# Figure 4b, Histogram in ggplot using density points
+# Figure 4b, Histogram inset,  export as 7x5 inch and pdf
 ggplot() +
   geom_histogram(data = as.data.frame(x1), aes(x=x1, y=..density..), fill="gray15", color="gray25", bins = 60) +
   scale_x_continuous(expand = c(0, 0), limits=c(0,62))+
@@ -267,5 +268,6 @@ mlr <- lm(fco2s~pco2s+k600s, data=splog)
 #the coefficients of the MLR
 summary(mlr)
 
+#and the partial R2 for each IV
 partr2 <- modelEffectSizes(mlr)
 partr2$Effects[,4]^2
