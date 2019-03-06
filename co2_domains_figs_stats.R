@@ -26,7 +26,7 @@ if(length(packages_missing) >= 1) install.packages(packages_missing)
 lapply(package_list, require, character.only = TRUE)
 
 #Set the working directory, you need to change this for he folder where yo have the files
-setwd("C:/Users/gero0008/Dropbox/PhD/PROJECTS/Miellajokka/SPATIAL")
+setwd("C:/Users/User/Downloads")
 
 #### Global functions and ggplot theme set ####
 ## Function to calculate kco2, from Raymond et al., 2012
@@ -45,7 +45,7 @@ gglm = list(
 
 
 #### Figure 1: Global dataset ####
-#### The global dataset can be found in this repository: 
+#### The global dataset and metadata can be found in this repository: https://doi.org/10.5878/77ps-4f21 
 #Read file
 co2_glob <- read_csv("global_pco2_k.csv") 
 
@@ -104,14 +104,14 @@ partr2$Effects[,4]^2
 #### Figure 3: Spatial patterns in the Miellajokka catchment ####
 #Read file from the spatial sampling in Miellajokka
 #It can be found here: https://doi.org/10.5878/pxa2-vy55
-
-sp <- read_delim("spatial_miella_submission.csv", ";", escape_double = FALSE, trim_ws = TRUE)
+sp <- read_csv2("spatial_miella_submission.csv")
 
 ####THIS IS TO MAKE THE K VS CO2 SPACE.
 #### TO PLOT THE ISOLINES IN FIGURE 3A
 pco2 <- seq(from=3800, to= 380, by=-5)
 ks <- seq(from= 1, to=550, length.out = length(pco2) )
 kpco2 <- list( ks, pco2)
+atmCO2 <- 0.000380
 
 #I basically do a matrix with all given values of pco2 and k and fco2
 x <- matrix( nrow=length(pco2), ncol=length(pco2), dimnames = kpco2) 
