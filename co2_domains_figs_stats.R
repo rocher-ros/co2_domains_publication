@@ -1,7 +1,7 @@
 #### R SCRIPT TO REPRUDUCE THE RESULTS IN THE PUBLICATION: 
 #### LANDSCAPE PROCESS DOMAINS DRIVE PATTERNS OF CO2 EVASION FROM RIVER NETWORKS
 #### In review in Limnology and Oceanography Letters
-#### AUTHORS:  Gerard Rocher-Ros, Ryan Sponseller, William Lidber2, Carl-Magnus Mörth, Reiner Giesler
+#### AUTHORS:  Gerard Rocher-Ros, Ryan Sponseller, William Lidberg, Carl-Magnus Mörth, Reiner Giesler
 #### Author of the script and contact email: Gerard Rocher-Ros (g.rocher.ros@gmail.com)
 ####
 #### Last edit: 2019-03-06
@@ -44,28 +44,28 @@ gglm = list(
   stat_cor(aes(label = paste(..rr.label.., ..p.label.., sep = "~`,`~")),label.y.npc = 0.9), #put R2 and label
   stat_regline_equation( label.y.npc = 1))
 
+####Figure 1 is the maps, made in ArcGIS ####
 
-#### Figure 1: Global dataset ####
+#### Figure 2: Global dataset ####
 #### The global dataset and metadata can be found in this repository: https://doi.org/10.5878/77ps-4f21 
 #Read file
 co2_glob <- read_csv("global_pco2_k.csv") 
 
 
-### Figure 1a,  export as 6x4 inch and pdf
+### Figure 2a,  export as 6x4 inch and pdf
 ggplot(data=co2_glob)+
   geom_point(aes(x=k600,y=pco2), alpha=.5, size=3 )+
-  geom_hline(yintercept=400, linetype=2)+
-  scale_x_continuous(limits = c(0, 120)) +
+  geom_hline(yintercept=380, linetype=2)+
   labs(x=expression(k[600]~(m~d^-1)),y=expression(pCO[2]~(ppm)))+
   theme(axis.text = element_text(size=14), axis.title = element_text(size=14)) 
 
 
-#Figure 1b: make a global map
+#Figure 2b: make a global map with the sites
 w_map <- fortify(map_data('world'))
 
 ggplot()+
   geom_map(data=w_map, map=w_map,
-           aes(x=long, y=lat, group=group, map_id=region),
+           aes(x=long, y=lat, map_id=region),
            fill="white", colour="gray40", size=0.5)+
   geom_point(data=co2_glob, aes(Longitude,Latitude), size=1, alpha=.6 , shape=21, fill="gray20", colour="black")+
   geom_point(aes(18.25,68.27), col="red")+
@@ -75,20 +75,21 @@ ggplot()+
 ##export as 3x5 inch pdf
 
 
-#Figure 1c and MLR. We need to log transform and standardize the dataset
+#Figure 2c and MLR. We need to log transform and standardize the dataset
 co2glob_log <- co2_glob %>% transmute(STAT_ID, Latitude, Longitude, fco2= log(fco2_gm2, base=10), 
                                        k600=log(kco2, base=10), pco2=log(pco2-380, base=10)) %>% na.omit() %>% 
   filter(pco2>-1000, fco2>-1000) %>% #After the log transform there are many values -Inf, I remove them
   mutate(fco2s=base::scale(fco2), pco2s=base::scale(pco2), k600s=base::scale(k600))
 
 
-#Figure 1c, export as 6x4 inch and pdf
+#Figure 2c, export as 6x4 inch and pdf
 ggplot(data=co2glob_log, aes(pco2, fco2))+
   geom_point(aes( color=k600), alpha=.5, size=4)+
   scale_color_viridis_c()+
   gglm+
   labs(x=expression(log[10](pCO[2]~(ppm))), y=expression(log[10](F[CO2]~(gC~m^-2~d^-1))))+
   theme(axis.text = element_text(size=14), axis.title = element_text(size=14)) 
+
 
 #perform a MLR with the standardized variables
 mlr_glob <- lm(fco2s~pco2s+k600s, data=co2glob_log)
@@ -104,7 +105,7 @@ partr2$Effects[,4]^2
 
 #### Figure 3: Spatial patterns in the Miellajokka catchment ####
 #Read file from the spatial sampling in Miellajokka
-#It can be found here: https://doi.org/10.5878/pxa2-vy55
+#It can be downloaded here: https://doi.org/10.5878/pxa2-vy55
 sp <- read_csv2("spatial_miella_submission.csv") #Beware, this csv file was processed by the data service and has "," as decimal delimiter
 
 ####THIS IS TO MAKE THE K VS CO2 SPACE.
@@ -122,7 +123,7 @@ Henrys <- (exp(-58.0931+(90.5069*(100/(9.2+273.15)))+(22.294*log((9.2+273.15)/10
 
 for(i in 1:length(pco2)){
   for( j in 1:length(ks)){
-    kco2 <- (((1100/599.42)^-0.5) * ks[i]) #I use the mean temp of 9.2 to calculate the schmidt number
+    kco2 <- (((1100/599.42)^-0.5) * ks[i]) 
     x[i,j] <- kco2*Henrys*(pco2[j]/1e+6-atmCO2)*12.0107
   }
 }
@@ -145,7 +146,7 @@ ggplot() +
         legend.key.width = unit(1, "cm"))
 
 
-##Color gradient version, export as pdf 8x5 inch
+##Previous color gradient version, export as pdf 8x5 inch
 ggplot() + 
    geom_tile(data=tx, aes(x=k, y=co2, fill=fco2), show.legend= T) +
     scale_fill_gradientn(colours = c("white","yellow2","orange", "darkorange2", "red","firebrick4"), 
@@ -166,9 +167,9 @@ ggplot() +
 
 
 #Figure 3b:
-# Firs we subset by k threshold
+# First we subset by k threshold
 wet_klow <- subset(sp, subset = k600_md <= 42)
-wet_khigh <- subset(sp, subset = k600_md >42)
+wet_khigh <- subset(sp, subset = k600_md > 42)
 
 #Figure 3b,  export as 8x5 inch and pdf
 ggplot()+
@@ -192,7 +193,7 @@ summary(lmhigh)
 
 
 #Figure 3c,   export as 8x5 inch and pdf
-ggplot(data= sp, aes(x=k600_md, y=FluxCO2_gm2_d1, color=CO2_ppm))+
+ggplot(data = sp, aes(x = k600_md, y = FluxCO2_gm2_d1, color = CO2_ppm))+
   geom_point(size=8,alpha=0.8, shape=20)+
   scale_color_gradient(low="dodgerblue", high="firebrick2")+
   scale_y_continuous(limits = c(0,62), expand = c(0, 0))+
@@ -220,8 +221,7 @@ ggplot(data= sp, aes(x=CO2_ppm, y=FluxCO2_gm2_d1))+
 
 ####This is to do the bootstrapping of the spatial distribution
 
-x1 <-sp$FluxCO2_gm2_d1
-
+x1 <-sp$FluxCO2_gm2_d1 #I put al the flux values in a vector
 
 size=168 #Maximum size
 n=200 #Number of times each size
@@ -259,7 +259,7 @@ splog <- sp %>% mutate(pco2=if_else(CO2_ppm<=380,380.5, CO2_ppm)) %>% #There are
   transmute(siteID=siteID, fco2= log(abs(FluxCO2_gm2_d1), base=10), 
                           k600=log(kco2_md, base=10), pco2=log(pco2-380, base=10),
                           wet=log(wet_areas_percentage, base=10) ) %>% 
-  filter(fco2>-500) %>%  na.omit()  %>%  #after log transform there are some -Inf values
+  filter(fco2>-1000) %>%  na.omit()  %>%  #after log transform there are some -Inf values
   mutate(fco2s=scale(fco2), pco2s=scale(pco2), k600s=scale(k600))
 
 #The multiple linear regression
