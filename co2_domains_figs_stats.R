@@ -32,7 +32,7 @@ setwd("C:/Users/User/Downloads")
 #### Global functions and ggplot theme set ####
 ## Function to calculate kco2, from Raymond et al., 2012
 kCO2 <- function(k600, temp){
-  kCO2= k600/ (600/( 1911.1 - 118.11*temp + 3.4527*temp^2 - 0.04132*temp^3 ))^(0.5)
+  kCO2= k600/ (600/( 1911.1 - 118.11*temp + 3.4527*temp^2 - 0.04132*temp^3 ))^(-0.5)
 }
 
 # General theme for ggplot
