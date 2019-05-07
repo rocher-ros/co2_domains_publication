@@ -1,6 +1,6 @@
 #### R SCRIPT TO REPRUDUCE THE RESULTS IN THE PUBLICATION: 
 #### LANDSCAPE PROCESS DOMAINS DRIVE PATTERNS OF CO2 EVASION FROM RIVER NETWORKS
-#### In review in Limnology and Oceanography Letters
+#### Published in Limnology and Oceanography Letters (https://aslopubs.onlinelibrary.wiley.com/doi/full/10.1002/lol2.10108)
 #### AUTHORS:  Gerard Rocher-Ros, Ryan Sponseller, William Lidberg, Carl-Magnus Mörth, Reiner Giesler
 #### Author of the script and contact email: Gerard Rocher-Ros (g.rocher.ros@gmail.com)
 ####
